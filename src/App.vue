@@ -1,28 +1,57 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <!-- s -->
+    <loading v-if='$store.state.bLoading'></loading>
+    <Header v-if="bNav"></Header>
+    <transition enter-active-class="animated fadeIn"
+    leave-active-class="animated fadeOut"
+    mode="out-in"
+    >
+      <router-view></router-view>
+    </transition>
+   
+    <Footer v-if="bFoot"></Footer>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import * as types from '../src/store/types'
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import loading from "./components/loading";
+import {mapState} from 'vuex'
 export default {
-  name: 'app',
+  name: "app",
   components: {
-    HelloWorld
-  }
-}
+    Header,
+    Footer,
+    loading
+  },
+  watch: {
+    $route: {
+      handler(nextRoute, prevRoute) {
+        let path = nextRoute.path;
+        if (/home|follow|column/.test(path)) {
+          this.$store.commit('VIEW_NAV',true)
+          this.$store.commit('VIEW_FOOT',true)
+        }
+        if (/user|map/.test(path)) {
+          this.$store.commit('VIEW_NAV',false)
+          this.$store.commit('VIEW_FOOT',true)
+        }
+        if (/login|detail|reg/.test(path)) {
+          this.$store.commit('VIEW_NAV',false)
+          this.$store.commit('VIEW_FOOT',false)
+        }
+      },
+      immediate: true
+    }
+  },
+  computed:mapState([
+    'bNav','bFoot'
+  ])
+};
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>

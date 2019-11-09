@@ -1,0 +1,10 @@
+
+#case ul{display:flex;justify-content:space-between;flex-wrap:wrap;}
+#case ul li{width:3.13rem;border:.01rem solid #e5e5e5;margin:.05rem 0;}
+#case ul li:hover{box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.5);transition: .5s;}
+#case ul li a{display:block;}
+#case ul li a img{display:block;width:3.13rem;height:3.13rem;
+border-bottom:.01rem solid #e5e5e5;}
+#case ul li a p{font-size:.24rem;line-height:.58rem;color:#333;width:2.34rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-left:.2rem;}
+
+ .follow{clear: both;margin-bottom:1rem;}
